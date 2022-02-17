@@ -1,6 +1,9 @@
 require 'nokogiri'
 require 'httparty'
 require 'pry'
+require 'telegram/bot'
+
+TOKEN = '5249568979:AAHKiqCh_9pDZGWP36Y0kyteMjSfUEIflKk'
 
 def call
   parsed_page
@@ -18,11 +21,12 @@ def call
         time_location: adverts_listing.css('td.bottom-cell').text.strip.chomp, # time_location
         url: adverts_listing.css('a')[0].attributes["href"].value # url
       }
-      p advert[:title]
       adverts << advert
     end
     page += 1
   end
+   adverts
+  # binding.pry
 end
 
 def last_page
@@ -54,5 +58,21 @@ def total_count_adverts
 end
 
 
+Telegram::Bot::Client.run(TOKEN) do |bot|
+  bot.listen do |message|
+    case message.text
+    when '/start'
+      bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
+    when '/stop'
+      bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
+    when '/pixel'
+      # binding.pry
+      bot.api.send_message(chat_id: message.chat.id,
+                           text: call.adverts)
+    end
+  end
+end
 
-call
+
+
+

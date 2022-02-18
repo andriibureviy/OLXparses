@@ -3,7 +3,7 @@ require 'httparty'
 require 'pry'
 require 'telegram/bot'
 
-TOKEN = '5249568979:AAHKiqCh_9pDZGWP36Y0kyteMjSfUEIflKk'
+TOKEN = '5208218361:AAGlBdoBtFYQwOGHMd1FAYIWfR4_Cs6SA90'
 
 def call
   parsed_page

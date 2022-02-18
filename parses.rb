@@ -3,7 +3,7 @@ require 'httparty'
 require 'pry'
 require 'telegram/bot'
 
-TOKEN = '5249568979:AAHKiqCh_9pDZGWP36Y0kyteMjSfUEIflKk'
+TOKEN = '5208218361:AAGlBdoBtFYQwOGHMd1FAYIWfR4_Cs6SA90'
 
 def call
   parsed_page
@@ -30,7 +30,7 @@ def call
 end
 
 def last_page
-  (total_count_adverts.to_f / per_page.to_f).round
+  (total_count_adverts.to_f / per_page.to_f).floor
 end
 
 def url
@@ -71,28 +71,28 @@ Telegram::Bot::Client.run(TOKEN) do |bot|
       bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
     when '5'
       a = 0
-      while a <= 5
+      while a <5
         bot.api.send_message(chat_id: message.chat.id,
                              text: "#{call[a][:title]}\n \n \n Price: #{call[a][:price]} \n \n \n#{call[a][:url]} ")
         a += 1
       end
     when '10'
       a = 0
-      while a <= 10
+      while a < 10
         bot.api.send_message(chat_id: message.chat.id,
                              text: "#{call[a][:title]}\n \n \n Price: #{call[a][:price]} \n \n \n#{call[a][:url]} ")
         a += 1
       end
     when '20'
       a = 0
-      while a <= 20
+      while a < 20
         bot.api.send_message(chat_id: message.chat.id,
                              text: "#{call[a][:title]}\n \n \n Price: #{call[a][:price]} \n \n \n#{call[a][:url]} ")
         a += 1
       end
     when '100'
       a = 0
-      while a <= 100
+      while a < 1
         bot.api.send_message(chat_id: message.chat.id,
                              text: "#{call[a][:title]}\n \n \n Price: #{call[a][:price]} \n \n \n#{call[a][:url]} ")
         a += 1
@@ -104,13 +104,13 @@ end
 # Telegram::Bot::Client.run(TOKEN) do |bot|
 #   bot.listen do |message|
 #     case message.text
-#     when '/start'
-#       bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
-#     when '/stop'
-#       bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
-#     when '/pixel'
-#       bot.api.send_message(chat_id: message.chat.id,
-#                            text: "#{call[0][:title]} #{call[0][:url]} \n Price: #{call[0][:price]}")
+#     # when '/start'
+#     #   bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
+#     # when '/stop'
+#     #   bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
+#     # when '/pixel'
+#     #   bot.api.send_message(chat_id: message.chat.id,
+#     #                        text: "#{call[0][:title]} #{call[0][:url]} \n Price: #{call[0][:price]}")
 #     when '/pixel5'
 #       a = 0
 #       while a <= 5

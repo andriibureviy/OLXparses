@@ -25,7 +25,7 @@ def call
     end
     page += 1
   end
-   adverts
+  adverts
   # binding.pry
 end
 
@@ -62,16 +62,66 @@ Telegram::Bot::Client.run(TOKEN) do |bot|
   bot.listen do |message|
     case message.text
     when '/start'
-      bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
+      question = 'How many Pixels u want to check?'
+      answers =
+        Telegram::Bot::Types::ReplyKeyboardMarkup
+          .new(keyboard: [%w[5 10], %w[20 100]], one_time_keyboard: true)
+      bot.api.send_message(chat_id: message.chat.id, text: question, reply_markup: answers)
     when '/stop'
       bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
-    when '/pixel'
-      # binding.pry
-      bot.api.send_message(chat_id: message.chat.id,
-                           text: call.adverts)
+    when '5'
+      a = 0
+      while a <= 5
+        bot.api.send_message(chat_id: message.chat.id,
+                             text: "#{call[a][:title]}\n \n \n Price: #{call[a][:price]} \n \n \n#{call[a][:url]} ")
+        a += 1
+      end
+    when '10'
+      a = 0
+      while a <= 10
+        bot.api.send_message(chat_id: message.chat.id,
+                             text: "#{call[a][:title]}\n \n \n Price: #{call[a][:price]} \n \n \n#{call[a][:url]} ")
+        a += 1
+      end
+    when '20'
+      a = 0
+      while a <= 20
+        bot.api.send_message(chat_id: message.chat.id,
+                             text: "#{call[a][:title]}\n \n \n Price: #{call[a][:price]} \n \n \n#{call[a][:url]} ")
+        a += 1
+      end
+    when '100'
+      a = 0
+      while a <= 100
+        bot.api.send_message(chat_id: message.chat.id,
+                             text: "#{call[a][:title]}\n \n \n Price: #{call[a][:price]} \n \n \n#{call[a][:url]} ")
+        a += 1
+      end
     end
   end
 end
+
+# Telegram::Bot::Client.run(TOKEN) do |bot|
+#   bot.listen do |message|
+#     case message.text
+#     when '/start'
+#       bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
+#     when '/stop'
+#       bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
+#     when '/pixel'
+#       bot.api.send_message(chat_id: message.chat.id,
+#                            text: "#{call[0][:title]} #{call[0][:url]} \n Price: #{call[0][:price]}")
+#     when '/pixel5'
+#       a = 0
+#       while a <= 5
+#         bot.api.send_message(chat_id: message.chat.id,
+#                              text: "#{call[a][:title]}\n \n \n Price: #{call[a][:price]} \n \n \n#{call[a][:url]} ")
+#         a += 1
+#       end
+#     end
+#   end
+# end
+
 
 
 
